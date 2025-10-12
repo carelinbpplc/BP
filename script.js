@@ -53,17 +53,6 @@ sidebarToggle.addEventListener('click', () => {
   sidebar.classList.toggle('open');
 });
 
-// Ensure hidden sidebar on small screens
-function checkScreen() {
-  if(window.innerWidth <= 992) sidebar.classList.add("hidden");
-  else sidebar.classList.remove("hidden");
-}
-window.addEventListener("resize", () => {
-  checkScreen();
-  updateMenu(menuIndex); // re-calc positions on resize
-});
-checkScreen();
-
 // Initialize menu positions
 updateMenu(menuIndex);
 
