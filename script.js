@@ -3,23 +3,37 @@ let menuIndex = 0;
 const menuItems = document.querySelectorAll(".menu-item");
 const nextBtn = document.getElementById("next");
 const prevBtn = document.getElementById("prev");
+const sidebarToggle = document.querySelector('.sidebar-toggle');
+const sidebar = document.querySelector('.sidebar');
 
-// Function to position items in a circular arc
+// Function to position items in a circular arc (desktop only)
 function updateMenu(index) {
-  const radius = 100; // radius of circular arc
-  const centerX = 110; // sidebar center X (half of sidebar width 220px)
-  const centerY = window.innerHeight / 2 + 20; // vertical center below logo
+  if (window.innerWidth <= 768) {
+    // Reset mobile layout
+    menuItems.forEach((item, i) => {
+      item.style.position = "static";
+      item.style.left = "auto";
+      item.style.top = "auto";
+      item.classList.remove("active", "prev", "next");
+      if (i === index) item.classList.add("active");
+    });
+    return;
+  }
+
+  const radius = 100;
+  const centerX = 110;
+  const centerY = window.innerHeight / 2 + 20;
 
   menuItems.forEach((item, i) => {
-    const angleStep = Math.PI / (menuItems.length - 1); // divide semi-circle
-    const angle = angleStep * (i - index); // offset from active item
+    const angleStep = Math.PI / (menuItems.length - 1);
+    const angle = angleStep * (i - index);
     const x = centerX + radius * Math.sin(angle) - item.offsetWidth / 2;
     const y = centerY - radius * Math.cos(angle) - item.offsetHeight / 2;
 
+    item.style.position = "absolute";
     item.style.left = `${x}px`;
     item.style.top = `${y}px`;
 
-    // Update classes
     item.classList.remove("active", "prev", "next");
     if (i === index) item.classList.add("active");
     else if (i === (index - 1 + menuItems.length) % menuItems.length) item.classList.add("prev");
@@ -28,7 +42,7 @@ function updateMenu(index) {
 }
 
 // Navigation buttons
-if(nextBtn && prevBtn) {
+if (nextBtn && prevBtn) {
   nextBtn.addEventListener("click", () => {
     menuIndex = (menuIndex + 1) % menuItems.length;
     updateMenu(menuIndex);
@@ -45,15 +59,17 @@ setInterval(() => {
   updateMenu(menuIndex);
 }, 5000);
 
-// Mobile toggle
-const sidebarToggle = document.querySelector('.sidebar-toggle');
-const sidebar = document.querySelector('.sidebar');
-
+// Sidebar toggle for mobile
 sidebarToggle.addEventListener('click', () => {
   sidebar.classList.toggle('open');
 });
 
-// Initialize menu positions
+// Recalculate layout on resize
+window.addEventListener("resize", () => {
+  updateMenu(menuIndex);
+});
+
+// Initial layout
 updateMenu(menuIndex);
 
 // ======================= Hero Section Slider =======================
