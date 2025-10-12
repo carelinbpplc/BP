@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Confirmation</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f7f7f7;
+  }
+  .container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  }
+  h2 { text-align: center; margin-bottom: 30px; color: #2c3e50; }
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+  .tab {
+    padding: 15px 20px;
+    background: #e6ffe6;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    border: 1px solid #7fff00;
+    transition: 0.3s;
+  }
+  .tab.active { background: #7fff00; color: #fff; }
+  .tab-content { display: none; padding: 20px 0; }
+  .tab-content.active { display: block; }
+  .crypto-section img { max-width: 200px; display: block; margin: 15px 0; }
+  .wallet-address { font-weight: 600; margin: 10px 0; }
+  .network-switch { margin: 15px 0; }
+  button#confirmPayment {
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #7fff00, #5fd700);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  /* Full-screen loader */
+  .loader-screen {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #fff;
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .loader-screen.active { display: flex; }
+  .loader {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #7fff00;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+  }
+  @keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
+  .full-message { text-align: center; font-size: 22px; font-weight: 600; color: #2c3e50; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Choose Your Payment Method</h2>
+  <div class="tabs">
+    <div class="tab active" data-target="bank">Bank Transfer</div>
+    <div class="tab" data-target="credit">Credit Card</div>
+    <div class="tab" data-target="debit">Debit Card</div>
+    <div class="tab" data-target="crypto">Crypto</div>
+  </div>
+
+  <!-- Tab Contents -->
+  <div id="bank" class="tab-content active">
+    <p>⚠️ Bank server is currently down. Please try again later.</p>
+  </div>
+  <div id="credit" class="tab-content">
+    <p>⚠️ Credit card server is currently down. Please try again later.</p>
+  </div>
+  <div id="debit" class="tab-content">
+    <p>⚠️ Debit card server is currently down. Please try again later.</p>
+  </div>
+  <div id="crypto" class="tab-content crypto-section">
+    <p>Scan the QR code or copy the wallet address below to complete your payment.</p>
+    <div class="crypto-qrcode">
+      <img id="cryptoQR" src="../assets/trx.jpeg" alt="Crypto QR Code">
+    </div>
+    <div class="wallet-address" id="walletAddress">
+      USDT (TRC20): <strong>TN2Ergk3rJfQy7aS4kZhN7Wk1v78uKFtG1</strong>
+    </div>
+    <div class="network-switch">
+      <label for="network">Switch Network:</label>
+      <select id="network">
+        <option value="trc20">TRC20</option>
+        <option value="bep20">BEP20</option>
+      </select>
+    </div>
+    <button id="confirmPayment">Confirm Payment</button>
+    <p>Note: Once you make the payment, click confirm. You can safely close the tab while we review the payment.</p>
+  </div>
+</div>
+
+<!-- Full-screen loader -->
+<div class="loader-screen" id="loaderScreen">
+  <div class="loader"></div>
+  <div class="full-message" id="loaderMessage">Your payment is being reviewed. Please wait for confirmation email. You can now safely close the tab.</div>
+</div>
+
+<script>
+  // Tab switch logic
+  const tabs = document.querySelectorAll(".tab");
+  const tabContents = document.querySelectorAll(".tab-content");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      const target = tab.getAttribute("data-target");
+      tabContents.forEach(tc => tc.classList.remove("active"));
+      document.getElementById(target).classList.add("active");
+    });
+  });
+
+  // Crypto network switch
+  const networkSelect = document.getElementById("network");
+  const cryptoQR = document.getElementById("cryptoQR");
+  const walletAddress = document.getElementById("walletAddress");
+
+  networkSelect.addEventListener("change", (e) => {
+    const network = e.target.value;
+    if(network === "trc20") {
+      cryptoQR.src = "../assets/trx.jpeg";
+      walletAddress.innerHTML = 'USDT (TRC20): <strong>TLkG72NXBHVYsqeZ5zzGy4USfUqDKVejqh</strong>';
+    } else if(network === "bep20") {
+      cryptoQR.src = "../assets/BEP20.jpeg";
+      walletAddress.innerHTML = 'USDT (BEP20): <strong>0xCF67ae4216B0a8ab8b1b4b70DcFf2Fb428B56032</strong>';
+    }
+  });
+
+  // Confirm payment button logic
+  const confirmBtn = document.getElementById("confirmPayment");
+  const loaderScreen = document.getElementById("loaderScreen");
+
+  confirmBtn.addEventListener("click", () => {
+    loaderScreen.classList.add("active");
+    // simulate 12 second loading
+    setTimeout(() => {
+      document.querySelector(".container").style.display = "none";
+      loaderScreen.querySelector(".loader").style.display = "none";
+      loaderScreen.querySelector("#loaderMessage").style.fontSize = "28px";
+    }, 12000);
+  });
+</script>
+</body>
+</html>
