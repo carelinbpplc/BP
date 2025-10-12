@@ -1,0 +1,711 @@
+/* Base */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(to right, #fdfdfd, #f7fff0);
+  color: #222;
+  overflow-x: hidden;
+}
+
+/* ================= Sidebar ================= */
+/* Sidebar Container */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: radial-gradient(circle at top, #7fff00, #2c3e50);
+  box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.6), 2px 0 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 1000;
+  padding-top: 100px; /* space for logo */
+  overflow: hidden;
+  transition: left 0.3s ease;
+}
+
+/* Sidebar Logo */
+.sidebar-logo {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+/* Menu Carousel Circular Layout */
+.menu-carousel {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px; /* start below logo */
+}
+
+.menu-item {
+  position: absolute;
+  width: 140px;
+  height: 50px;
+  border-radius: 20px; /* rounded rectangle */
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.menu-item.active {
+  background: linear-gradient(135deg, #7FFF00, #32cd32);
+  color: #0c0c0c;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.menu-item:hover {
+  background: rgba(127,255,0,0.3);
+  color: #0c0c0c;
+}
+
+/* Previous / Next items */
+.menu-item.prev,
+.menu-item.next {
+  opacity: 0.6;
+}
+
+/* Mobile toggle */
+.sidebar-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 2000;
+  font-size: 28px;
+  background: #2c3e50;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: none;
+}
+
+@media (max-width: 992px) {
+  .sidebar-toggle {
+    display: block;
+  }
+  .sidebar {
+    left: -240px;
+  }
+}
+
+/* ================= Content ================= */
+.content {
+  margin-left: 220px;
+  padding: 0;
+  width: calc(100% - 220px);
+  transition: margin-left 0.3s ease;
+}
+
+/* ================= Responsive ================= */
+@media (max-width: 992px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-toggle {
+    display: block;
+  }
+
+  .content {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* ================= Hero Section ================= */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  overflow: hidden;
+}
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease;
+}
+.hero-slide.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+}
+.hero-image {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-caption {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px 25px;
+  border-radius: 12px;
+  color: #fff;
+  z-index: 2;
+}
+.hero-caption h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+.hero-caption p {
+  font-size: 20px;
+  margin: 0;
+}
+.hero-nav button {
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: background 0.3s ease;
+  z-index: 3;
+}
+.hero-nav button:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+#hero-prev { left: 20px; }
+#hero-next { right: 20px; }
+
+/* ================= Catalogue ================= */
+.catalogue {
+  padding: 50px 10%;
+  text-align: center;
+}
+.catalogue-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+.img-wrapper {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+.img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.card:hover .img-wrapper img {
+  transform: scale(1.05);
+}
+
+/* ================= News / Benefits / Form / Footer ================= */
+/* Keep your previous styling as is from your code... */
+
+/* News, Benefits, Form, Footer — unchanged */
+.news {
+  padding: 60px 10%;
+  background: #f4fdf4;
+  text-align: center;
+}
+
+.news h2 {
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.news-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease;
+  text-align: left;
+}
+
+.news-card:hover {
+  transform: translateY(-5px);
+}
+
+.news-card .img-wrapper {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.news-card .img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.news-card h3 {
+  font-size: 20px;
+  margin: 10px 0 8px;
+}
+
+.news-card p {
+  font-size: 15px;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.news-card a {
+  color: #7FFF00;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.news-card a:hover {
+  text-decoration: underline;
+}
+
+.benefits {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 60px 10%;
+  align-items: center;
+  gap: 40px;
+  background: #ffffff;
+}
+
+.benefits-image,
+.benefits-text {
+  flex: 1;
+  min-width: 300px;
+}
+
+.benefits-image .img-wrapper {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.benefits-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.benefits-text h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.benefits-text p {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #444;
+}
+
+.benefits ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.benefits ul li {
+  margin: 8px 0;
+  font-size: 15px;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.benefits ul li::before {
+  content: '✔';
+  color: #7FFF00;
+  margin-right: 10px;
+}
+
+/* =============== REGISTRATION / FRANCHISE FORM =============== */
+.register {
+  padding: 80px 10%;
+  background: #ffffff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.register::before,
+.register::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.register::before {
+  top: -60px;
+  left: -60px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(127,255,0,0.12), transparent);
+}
+
+.register::after {
+  bottom: -80px;
+  right: -80px;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(127,255,0,0.12), transparent);
+}
+
+.register h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: #1a1a1a;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  z-index: 1;
+}
+
+.register p {
+  color: #666;
+  font-size: 15px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Form Container */
+#applyForm {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fafafa;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+  padding: 50px 60px;
+  text-align: left;
+  position: relative;
+  z-index: 1;
+  border: 1px solid #ebebeb;
+}
+
+/* Form Grid Layout */
+.form-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px 30px;
+  margin-bottom: 25px;
+  align-items: end;
+}
+
+/* Labels */
+label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+}
+
+/* Inputs & Selects */
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  background: #fff;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #7FFF00;
+  box-shadow: 0 0 0 3px rgba(127, 255, 0, 0.15);
+  outline: none;
+}
+
+/* Icons inside inputs (optional) */
+.input-icon {
+  position: relative;
+}
+.input-icon i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7FFF00;
+  font-size: 18px;
+}
+.input-icon input,
+.input-icon select,
+.input-icon textarea {
+  padding-left: 40px;
+}
+
+/* Textarea */
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Checkbox */
+.checkbox-group {
+  margin: 15px 0;
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+
+.checkbox-group input {
+  width: auto;
+  margin-right: 10px;
+  accent-color: #7FFF00;
+}
+
+/* Section Headings inside Form */
+.register h3 {
+  font-size: 20px;
+  color: #5fd700;
+  margin-top: 40px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Poppins', sans-serif;
+  border-left: 4px solid #7FFF00;
+  padding-left: 12px;
+}
+
+/* Divider Line between Sections */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, rgba(127,255,0,0.3), transparent);
+  margin: 30px 0;
+}
+
+/* Submit Button */
+button[type="submit"] {
+  display: inline-block;
+  background: linear-gradient(135deg, #7FFF00, #5fd700);
+  border: none;
+  padding: 15px 45px;
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.4px;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+  box-shadow: 0 6px 18px rgba(127, 255, 0, 0.25);
+  text-transform: uppercase;
+}
+
+button[type="submit"]:hover {
+  background: linear-gradient(135deg, #6be000, #54c800);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(127, 255, 0, 0.3);
+}
+
+#form-msg {
+  margin-top: 18px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #4CAF50;
+  text-align: center;
+}
+
+/* Hidden State */
+.hidden {
+  display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #applyForm {
+    padding: 30px 25px;
+  }
+  .form-group {
+    gap: 20px;
+  }
+}
+
+/* Footer Styling */
+footer {
+  background: #0c0c0c;
+  color: #fff;
+  padding: 60px 20px 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 40px;
+}
+
+.footer-left h3,
+.footer-right h3 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: #00b359;
+}
+
+.footer-left p,
+.footer-right p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.footer-right a {
+  color: #00b359;
+  text-decoration: none;
+}
+
+.footer-right a:hover {
+  text-decoration: underline;
+}
+
+.social-links a {
+  display: inline-block;
+  margin-right: 12px;
+  transition: transform 0.3s ease;
+}
+
+.social-links a:hover {
+  transform: scale(1.1);
+}
+
+.social-links img {
+  width: 28px;
+  height: 28px;
+  filter: brightness(0) invert(1);
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  text-align: center;
+  padding-top: 15px;
+  margin-top: 30px;
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-float {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: #25d366;
+  border-radius: 50%;
+  padding: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 9999;
+  transition: transform 0.3s ease;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+}
+
+.whatsapp-float img {
+  width: 40px;
+  height: 40px;
+}
+
+/* Form Success Transition */
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#thankyou-message {
+  text-align: center;
+  padding: 50px 20px;
+  background: #f9fff2;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+#thankyou-message h2 {
+  color: #4CAF50;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
