@@ -396,219 +396,31 @@ body {
   color: #7FFF00;
   margin-right: 10px;
 }
-
-/* =============== REGISTRATION / FRANCHISE FORM =============== */
-.register {
-  padding: 80px 10%;
-  background: #ffffff;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.register::before,
-.register::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  z-index: 0;
-}
-
-.register::before {
-  top: -60px;
-  left: -60px;
-  width: 220px;
-  height: 220px;
-  background: radial-gradient(circle, rgba(127,255,0,0.12), transparent);
-}
-
-.register::after {
-  bottom: -80px;
-  right: -80px;
-  width: 260px;
-  height: 260px;
-  background: radial-gradient(circle, rgba(127,255,0,0.12), transparent);
-}
-
-.register h2 {
-  font-size: 32px;
-  margin-bottom: 10px;
-  color: #1a1a1a;
-  font-family: 'Poppins', sans-serif;
-  position: relative;
-  z-index: 1;
-}
-
-.register p {
-  color: #666;
-  font-size: 15px;
-  margin-bottom: 40px;
-  position: relative;
-  z-index: 1;
-}
-
-/* Form Container */
-#applyForm {
-  max-width: 900px;
-  margin: 0 auto;
-  background: #fafafa;
-  border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
-  padding: 50px 60px;
-  text-align: left;
-  position: relative;
-  z-index: 1;
-  border: 1px solid #ebebeb;
-}
-
-/* Form Grid Layout */
-.form-group {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px 30px;
-  margin-bottom: 25px;
-  align-items: end;
-}
-
-/* Labels */
-label {
-  display: block;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 8px;
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
-}
-
-/* Inputs & Selects */
-input,
-textarea,
-select {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1px solid #dcdcdc;
-  border-radius: 10px;
-  font-size: 15px;
-  font-family: 'Inter', sans-serif;
-  background: #fff;
-  transition: all 0.25s ease;
-  box-sizing: border-box;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  border-color: #7FFF00;
-  box-shadow: 0 0 0 3px rgba(127, 255, 0, 0.15);
-  outline: none;
-}
-
-/* Icons inside inputs (optional) */
-.input-icon {
-  position: relative;
-}
-.input-icon i {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #7FFF00;
-  font-size: 18px;
-}
-.input-icon input,
-.input-icon select,
-.input-icon textarea {
-  padding-left: 40px;
-}
-
-/* Textarea */
-textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
-/* Checkbox */
-.checkbox-group {
-  margin: 15px 0;
-  text-align: left;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-}
-
-.checkbox-group input {
-  width: auto;
-  margin-right: 10px;
-  accent-color: #7FFF00;
-}
-
-/* Section Headings inside Form */
-.register h3 {
-  font-size: 20px;
-  color: #5fd700;
-  margin-top: 40px;
-  margin-bottom: 15px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-family: 'Poppins', sans-serif;
-  border-left: 4px solid #7FFF00;
-  padding-left: 12px;
-}
-
-/* Divider Line between Sections */
-.section-divider {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(to right, rgba(127,255,0,0.3), transparent);
-  margin: 30px 0;
-}
-
-/* Submit Button */
-button[type="submit"] {
+.premium-btn {
   display: inline-block;
-  background: linear-gradient(135deg, #7FFF00, #5fd700);
-  border: none;
-  padding: 15px 45px;
-  color: white;
-  border-radius: 12px;
-  cursor: pointer;
+  padding: 14px 28px;
+  font-size: 18px;
   font-weight: 600;
-  font-family: 'Poppins', sans-serif;
-  font-size: 16px;
-  letter-spacing: 0.4px;
-  transition: all 0.3s ease;
-  margin-top: 15px;
-  box-shadow: 0 6px 18px rgba(127, 255, 0, 0.25);
-  text-transform: uppercase;
-}
-
-button[type="submit"]:hover {
-  background: linear-gradient(135deg, #6be000, #54c800);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(127, 255, 0, 0.3);
-}
-
-#form-msg {
-  margin-top: 18px;
-  font-size: 15px;
-  font-weight: 500;
-  color: #4CAF50;
+  color: #fff;
+  background: linear-gradient(135deg, #7b2ff7, #f107a3);
+  border: none;
+  border-radius: 50px;
+  text-decoration: none;
   text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
 }
 
-/* Hidden State */
-.hidden {
-  display: none !important;
+.premium-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, #f107a3, #7b2ff7);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  #applyForm {
-    padding: 30px 25px;
-  }
-  .form-group {
-    gap: 20px;
-  }
-}
+.premium-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+    }
 
 /* Footer Styling */
 footer {
