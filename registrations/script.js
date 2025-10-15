@@ -159,26 +159,103 @@ const countries = [
     setTimeout(()=>formMsg.textContent="",3000);
   });
 
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    formMsg.textContent = "";
-    const scale = document.querySelector('input[name="scale"]:checked')?.value || 'small';
-    updateAmounts(scale);
+  (() => {
+  const form = document.getElementById('applyForm');
+  const formMsg = document.getElementById('form-msg');
+  const thankYouPanel = document.getElementById('thankYouPanel');
+  const countrySelect = document.getElementById('country');
+  const previewBtn = document.getElementById('previewBtn');
 
-    // For demo: simulate success
-    form.style.display = "none";
-    thankYouPanel.classList.remove('hidden');
+  // --- Helper validation functions ---
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+  function isValidZip(zip) {
+    return /^[A-Za-z0-9\- ]{3,10}$/.test(zip);
+  }
+
+  // --- Event listeners for other elements ---
+  countrySelect?.addEventListener('change', updateFromCountry);
+
+  previewBtn?.addEventListener('click', () => {
+    const scale = document.querySelector('input[name="scale"]:checked')?.value;
+    if (!scale) {
+      formMsg.textContent = "Select scale first.";
+      formMsg.style.color = "red";
+      return;
+    }
+    updateAmounts(scale);
+    formMsg.textContent = "Preview updated.";
+    formMsg.style.color = "green";
+    setTimeout(() => formMsg.textContent = "", 3000);
   });
 
-  // Init
-  (function init() {
-    countrySelect.value = "GB";
-    updateFromCountry();
-    const defaultCard = document.querySelector('.radio-card[data-scale="small"]');
-    if(defaultCard){
-      defaultCard.classList.add('active');
-      defaultCard.querySelector('input[type="radio"]').checked = true;
-    }
-  })();
+  // --- Form submission ---
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const errors = [];
 
+    const phoneInput = document.getElementById('phone');
+    const emailInput = document.getElementById('personal_email');
+    const zipInput = document.getElementById('zip');
+
+    // Reset borders
+    [phoneInput, emailInput, zipInput].forEach(el => el.style.borderColor = "#ccc");
+
+    // --- Validation ---
+    if (!phoneInput.value.trim()) {
+      errors.push("Phone number is required.");
+      phoneInput.style.borderColor = "red";
+    }
+    if (!isValidEmail(emailInput.value.trim())) {
+      errors.push("Enter a valid email address.");
+      emailInput.style.borderColor = "red";
+    }
+    if (!isValidZip(zipInput.value.trim())) {
+      errors.push("Enter a valid ZIP/Postal code.");
+      zipInput.style.borderColor = "red";
+    }
+
+    if (errors.length) {
+      formMsg.innerHTML = errors.join("<br>");
+      formMsg.style.color = "red";
+      return;
+    }
+
+    // --- Submit state ---
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = "Submitting...";
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = "0.7";
+
+    // --- Send form to Formspree ---
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        formMsg.textContent = "";
+        form.style.display = "none";
+        thankYouPanel.classList.remove('hidden');
+        setTimeout(() => {
+          window.location.href = "payments/payment-confirmation.html";
+        }, 3000);
+      } else {
+        formMsg.textContent = "Submission failed. Please check details.";
+        formMsg.style.color = "red";
+      }
+    } catch (err) {
+      console.error(err);
+      formMsg.textContent = "Form submission failed. Check your internet connection.";
+      formMsg.style.color = "red";
+    } finally {
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = "1";
+    }
+  });
 })();
