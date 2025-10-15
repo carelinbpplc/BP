@@ -228,7 +228,7 @@
         form.style.display = "none";
         thankYouPanel.classList.remove("hidden");
         setTimeout(() => {
-          window.location.href = "payments/payment-confirmation.html";
+          window.location.href = "../payments/payment-confirmation.html";
         }, 3000);
       } else {
         formMsg.textContent = "Submission failed. Please check your details and try again.";
