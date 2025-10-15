@@ -1,4 +1,4 @@
-<script>
+ <script>
 // --- Immediately Invoked Function Expression to avoid global scope pollution ---
 (function() {
 
