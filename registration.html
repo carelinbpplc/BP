@@ -4,70 +4,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Franchise Application — Global</title>
+<link rel="stylesheet" href="style.css">
 
 <!-- intl-tel-input -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.5.3/build/css/intlTelInput.min.css">
-
-<style>
-:root{
-  --accent:#7FFF00;
-  --accent-dark:#54c800;
-  --muted:#666;
-  --card-bg:#f9fff2;
-  --text:#0b2a0b;
-  --shadow:0 8px 25px rgba(0,0,0,0.08);
-  --radius:12px;
-  --max-width:980px;
-}
-body {
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-  background: linear-gradient(180deg,#fbfff8 0%,#effff0 100%);
-  margin: 0; padding: 36px;
-  color:var(--text);
-  display:flex; justify-content:center;
-}
-.wrap {
-  width:100%; max-width:var(--max-width);
-  background:#fff; border-radius:16px; box-shadow:var(--shadow); overflow:hidden;
-}
-.header { padding:22px 28px; background:linear-gradient(90deg, rgba(127,255,0,0.06), rgba(90,200,30,0.03)); }
-.header h1 { margin:0; font-family:'Poppins',sans-serif; font-size:20px;}
-.header p { margin:6px 0 0; color:var(--muted); font-size:14px; }
-
-form { padding:24px 28px; }
-.grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px 18px; }
-@media(max-width:880px){ .grid { grid-template-columns:1fr; } }
-
-label { display:block; margin-bottom:6px; font-weight:600; font-size:13px; }
-input[type=text], input[type=email], input[type=tel], select, textarea {
-  width:100%; padding:10px 12px; border-radius:10px; border:1px solid #e6e6e6; font-size:14px; box-sizing:border-box;
-}
-textarea { min-height:110px; resize:vertical; }
-
-.section-title { margin-top:18px; margin-bottom:10px; display:flex; align-items:center; }
-.section-title h3 { margin:0; font-size:13px; text-transform:uppercase; letter-spacing:0.5px; color:#2b4c2b; border-left:4px solid var(--accent); padding-left:10px; }
-
-.radio-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:6px; }
-@media(max-width:880px){ .radio-grid{ grid-template-columns:1fr; } }
-.radio-card { padding:12px; border-radius:10px; background:#fbfff7; border:1px solid rgba(0,0,0,0.06); cursor:pointer; font-weight:700; display:flex; align-items:center; gap:10px; }
-.radio-card.active { background:linear-gradient(90deg,var(--accent),var(--accent-dark)); color:#062606; transform:translateY(-3px); box-shadow:0 8px 18px rgba(127,255,0,0.12); }
-
-.fees { margin-top:14px; padding:12px; border-radius:10px; background:linear-gradient(180deg,#fbfff8,#f0fff0); border:1px solid #e7f8d8; display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
-.fees .left { font-weight:700; color:#163b10; }
-.fees .right { font-weight:800; color:#163b10; font-size:18px; }
-
-.muted { color:var(--muted); font-size:13px; }
-
-.submit-row { display:flex; gap:10px; margin-top:18px; align-items:center; flex-wrap:wrap; }
-button.primary { background:linear-gradient(135deg,var(--accent),var(--accent-dark)); border:none; padding:12px 18px; border-radius:10px; font-weight:800; color:#052305; cursor:pointer; box-shadow:0 8px 18px rgba(127,255,0,0.16); }
-button.secondary { background:#fff; border:1px solid #ddd; padding:10px 14px; border-radius:10px; cursor:pointer; }
-
-#form-msg { margin-left:10px; color:#666; font-weight:600; }
-
-.hidden { display:none !important; }
-.thankyou { padding:18px 28px; background:#f6fff1; border-top:1px solid #e6f8d7; text-align:center; }
-.thankyou h2 { margin:0; color:#2b6f23; }
-</style>
 </head>
 <body>
 <div class="wrap" role="main" aria-labelledby="title">
@@ -77,7 +17,6 @@ button.secondary { background:#fff; border:1px solid #ddd; padding:10px 14px; bo
   </div>
 
   <form id="applyForm" action="https://formspree.io/f/mblzzzqw" method="POST" novalidate>
-
     <!-- Country & Phone -->
     <div class="section-title"><h3>Country & Contact</h3></div>
     <div class="grid">
@@ -93,106 +32,105 @@ button.secondary { background:#fff; border:1px solid #ddd; padding:10px 14px; bo
       </div>
     </div>
 
-         <!-- Personal -->
-      <div class="section-title"><h3>Personal Information</h3></div>
-      <div class="grid">
-        <div><label for="first_name">First name</label><input id="first_name" name="first_name" type="text" required></div>
-        <div><label for="last_name">Last name</label><input id="last_name" name="last_name" type="text" required></div>
-        <div><label for="personal_email">Personal email</label><input id="personal_email" name="personal_email" type="email" required></div>
-        <div><label for="business_email">Business email (optional)</label><input id="business_email" name="business_email" type="email"></div>
-        <div><label for="city">City / Region</label><input id="city" name="city" type="text" required></div>
-        <div><label for="zip">ZIP / Postal</label><input id="zip" name="zip_code" type="text" required></div>
-      </div>
+    <!-- Personal -->
+    <div class="section-title"><h3>Personal Information</h3></div>
+    <div class="grid">
+      <div><label for="first_name">First name</label><input id="first_name" name="first_name" type="text" required></div>
+      <div><label for="last_name">Last name</label><input id="last_name" name="last_name" type="text" required></div>
+      <div><label for="personal_email">Personal email</label><input id="personal_email" name="personal_email" type="email" required></div>
+      <div><label for="business_email">Business email (optional)</label><input id="business_email" name="business_email" type="email"></div>
+      <div><label for="city">City / Region</label><input id="city" name="city" type="text" required></div>
+      <div><label for="zip">ZIP / Postal</label><input id="zip" name="zip_code" type="text" required></div>
+    </div>
 
-      <!-- Business interest -->
-      <div class="section-title"><h3>Business Interest</h3></div>
-      <div class="grid">
-        <div>
-          <label for="interest_type">Applying for</label>
-          <select id="interest_type" name="interest_type" required>
-            <option value="" disabled selected>-- Choose --</option>
-            <option value="new">New franchise / new setup</option>
-            <option value="existing">Existing business / expansion</option>
-          </select>
-        </div>
-
-        <div id="existing_location_wrap" class="hidden">
-          <label for="existing_location">Existing location (where?)</label>
-          <input id="existing_location" name="existing_location" type="text" placeholder="City / Site">
-        </div>
-
-        <div id="new_site_wrap" class="hidden">
-          <label for="land_status">Land / site status</label>
-          <select id="land_status" name="land_status">
-            <option value="" disabled selected>-- Select --</option>
-            <option value="owned">Owned</option>
-            <option value="lease">Lease</option>
-            <option value="not_yet">Not yet (searching)</option>
-            <option value="need_bp">Need BP to provide solution</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="interest">Business model</label>
-          <select id="interest" name="interest" required>
-            <option value="" disabled selected>-- Select --</option>
-            <option value="ev_compact">EV Compact Solution</option>
-            <option value="ev_large">EV Large Station Solution</option>
-            <option value="ev_gas">EV + Gas Station Solution</option>
-            <option value="gas_small">Small scale gas station</option>
-            <option value="gas_large">Large scale gas station</option>
-            <option value="solar">Solar energy</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Scale & fees -->
-      <div class="section-title"><h3>Scale & Investment</h3></div>
-
-      <div class="radio-grid" id="scaleOptions" style="margin-bottom:8px;">
-        <label class="radio-card" data-scale="small"><input type="radio" name="scale" value="small" required> Small (Compact)</label>
-        <label class="radio-card" data-scale="medium"><input type="radio" name="scale" value="medium"> Medium</label>
-        <label class="radio-card" data-scale="large"><input type="radio" name="scale" value="large"> Large / Full</label>
-      </div>
-
-      <div class="fees" aria-live="polite">
-        <div>
-          <div class="left">Registration fee</div>
-          <div class="muted">Fixed fee charged at registration</div>
-        </div>
-        <div class="right"><span id="regSymbol">£</span><span id="regValue">2000</span></div>
-
-        <div style="width:100%;height:6px"></div>
-
-        <div style="width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
-          <div>
-            <div class="muted">Startup / Total investment (USD approx.)</div>
-            <div id="startupUSD" style="font-weight:800">$30,000</div>
-            <div class="muted">(approx, depends on scale)</div>
-          </div>
-          <div>
-            <div class="muted">Startup equivalent (local)</div>
-            <div id="startupLocal" style="font-weight:800">£30,000</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- extra -->
-      <div class="section-title"><h3>Additional information</h3></div>
+    <!-- Business Interest -->
+    <div class="section-title"><h3>Business Interest</h3></div>
+    <div class="grid">
       <div>
-        <label for="message">Notes / Requirements</label>
-        <textarea id="message" name="message" placeholder="Write any details, expectations, questions..."></textarea>
+        <label for="interest_type">Applying for</label>
+        <select id="interest_type" name="interest_type" required>
+          <option value="" disabled selected>-- Choose --</option>
+          <option value="new">New franchise / new setup</option>
+          <option value="existing">Existing business / expansion</option>
+        </select>
       </div>
 
-      <!-- declarations -->
-      <div class="section-title"><h3>Agreement & Declarations</h3></div>
-      <div style="margin-bottom:6px;">
-        <label><input type="checkbox" id="agree_payment" name="agree_payment" required> I agree to pay the one-time registration fee of <strong id="declSymbol">£</strong><strong id="declValue">2000</strong> (local equivalent shown).</label>
+      <div id="existing_location_wrap" class="hidden">
+        <label for="existing_location">Existing location (where?)</label>
+        <input id="existing_location" name="existing_location" type="text" placeholder="City / Site">
       </div>
-      <div style="margin-bottom:6px;">
-        <label><input type="checkbox" name="agree_declaration" required> I declare that the information above is true and I accept BP's assessment process.</label>
+
+      <div id="new_site_wrap" class="hidden">
+        <label for="land_status">Land / site status</label>
+        <select id="land_status" name="land_status">
+          <option value="" disabled selected>-- Select --</option>
+          <option value="owned">Owned</option>
+          <option value="lease">Lease</option>
+          <option value="not_yet">Not yet (searching)</option>
+          <option value="need_bp">Need BP to provide solution</option>
+        </select>
       </div>
-      
+
+      <div>
+        <label for="interest">Business model</label>
+        <select id="interest" name="interest" required>
+          <option value="" disabled selected>-- Select --</option>
+          <option value="ev_compact">EV Compact Solution</option>
+          <option value="ev_large">EV Large Station Solution</option>
+          <option value="ev_gas">EV + Gas Station Solution</option>
+          <option value="gas_small">Small scale gas station</option>
+          <option value="gas_large">Large scale gas station</option>
+          <option value="solar">Solar energy</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Scale & fees -->
+    <div class="section-title"><h3>Scale & Investment</h3></div>
+    <div class="radio-grid" id="scaleOptions">
+      <label class="radio-card" data-scale="small"><input type="radio" name="scale" value="small" required> Small (Compact)</label>
+      <label class="radio-card" data-scale="medium"><input type="radio" name="scale" value="medium"> Medium</label>
+      <label class="radio-card" data-scale="large"><input type="radio" name="scale" value="large"> Large / Full</label>
+    </div>
+
+    <div class="fees" aria-live="polite">
+      <div>
+        <div class="left">Registration fee</div>
+        <div class="muted">Fixed fee charged at registration</div>
+      </div>
+      <div class="right"><span id="regSymbol">£</span><span id="regValue">2000</span></div>
+
+      <div style="width:100%;height:6px"></div>
+
+      <div style="width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+        <div>
+          <div class="muted">Startup / Total investment (USD approx.)</div>
+          <div id="startupUSD" style="font-weight:800">$30,000</div>
+          <div class="muted">(approx, depends on scale)</div>
+        </div>
+        <div>
+          <div class="muted">Startup equivalent (local)</div>
+          <div id="startupLocal" style="font-weight:800">£30,000</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional info -->
+    <div class="section-title"><h3>Additional information</h3></div>
+    <div>
+      <label for="message">Notes / Requirements</label>
+      <textarea id="message" name="message" placeholder="Write any details, expectations, questions..."></textarea>
+    </div>
+
+    <!-- Declarations -->
+    <div class="section-title"><h3>Agreement & Declarations</h3></div>
+    <div style="margin-bottom:6px;">
+      <label><input type="checkbox" id="agree_payment" name="agree_payment" required> I agree to pay the one-time registration fee of <strong id="declSymbol">£</strong><strong id="declValue">2000</strong> (local equivalent shown).</label>
+    </div>
+    <div style="margin-bottom:6px;">
+      <label><input type="checkbox" name="agree_declaration" required> I declare that the information above is true and I accept BP's assessment process.</label>
+    </div>
+
     <!-- Submit -->
     <div class="submit-row">
       <button class="primary" type="submit">Submit Application</button>
@@ -209,244 +147,6 @@ button.secondary { background:#fff; border:1px solid #ddd; padding:10px 14px; bo
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.5.3/build/js/intlTelInput.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.5.3/build/js/utils.js"></script>
-
-
-<script>
-(function(){
-  const baseRegistrationUSD = { small:2000, medium:3000, large:5000 };
-  const startupUSD = { small:30000, medium:70000, large:200000 };
-
-  const countrySelect = document.getElementById('country');
-  const phoneInput = document.getElementById('phone');
-  const regSymbolEl = document.getElementById('regSymbol');
-  const regValueEl = document.getElementById('regValue');
-  const declSymbolEl = document.getElementById('declSymbol');
-  const declValueEl = document.getElementById('declValue');
-  const startupUSDEl = document.getElementById('startupUSD');
-  const startupLocalEl = document.getElementById('startupLocal');
-  const radioCards = document.querySelectorAll('.radio-card');
-  const interestType = document.getElementById('interest_type');
-  const existingWrap = document.getElementById('existing_location_wrap');
-  const newWrap = document.getElementById('new_site_wrap');
-  const previewBtn = document.getElementById('previewFees');
-  const form = document.getElementById('applyForm');
-  const formMsg = document.getElementById('form-msg');
-  const thankYouPanel = document.getElementById('thankYouPanel');
-
-  // intl-tel-input
-  const iti = window.intlTelInput(phoneInput, {
-    separateDialCode:true,
-    preferredCountries:["gb","us","ca","au","in"],
-    utilsScript:"https://cdn.jsdelivr.net/npm/intl-tel-input@18.5.3/build/js/utils.js"
-  });
-
-  // Email & ZIP validators
-  function isValidEmail(email){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
-  function isValidZip(zip){ return /^[A-Za-z0-9\- ]{3,10}$/.test(zip); }
-
-  // Full country list with emojis and USD conversion rates
- 
-const countries = [
-  {iso:"GB", code:"+44", currency:"£", name:"United Kingdom (GBP)", emoji:"🇬🇧", usdRate:0.81},
-  {iso:"US", code:"+1", currency:"$", name:"United States (USD)", emoji:"🇺🇸", usdRate:1},
-  {iso:"CA", code:"+1", currency:"CA$", name:"Canada (CAD)", emoji:"🇨🇦", usdRate:1.35},
-  {iso:"AU", code:"+61", currency:"A$", name:"Australia (AUD)", emoji:"🇦🇺", usdRate:1.51},
-  {iso:"NZ", code:"+64", currency:"NZ$", name:"New Zealand (NZD)", emoji:"🇳🇿", usdRate:1.64},
-  {iso:"IE", code:"+353", currency:"€", name:"Ireland (EUR)", emoji:"🇮🇪", usdRate:0.93},
-  {iso:"PL", code:"+48", currency:"zł", name:"Poland (PLN)", emoji:"🇵🇱", usdRate:4.2},
-  {iso:"JP", code:"+81", currency:"¥", name:"Japan (JPY)", emoji:"🇯🇵", usdRate:148},
-  {iso:"IN", code:"+91", currency:"₹", name:"India (INR)", emoji:"🇮🇳", usdRate:82.5},
-  {iso:"DE", code:"+49", currency:"€", name:"Germany (EUR)", emoji:"🇩🇪", usdRate:0.93},
-  {iso:"FR", code:"+33", currency:"€", name:"France (EUR)", emoji:"🇫🇷", usdRate:0.93},
-  {iso:"ES", code:"+34", currency:"€", name:"Spain (EUR)", emoji:"🇪🇸", usdRate:0.93},
-  {iso:"IT", code:"+39", currency:"€", name:"Italy (EUR)", emoji:"🇮🇹", usdRate:0.93},
-  {iso:"NL", code:"+31", currency:"€", name:"Netherlands (EUR)", emoji:"🇳🇱", usdRate:0.93},
-  {iso:"BE", code:"+32", currency:"€", name:"Belgium (EUR)", emoji:"🇧🇪", usdRate:0.93},
-  {iso:"CH", code:"+41", currency:"CHF", name:"Switzerland (CHF)", emoji:"🇨🇭", usdRate:0.92},
-  {iso:"SE", code:"+46", currency:"SEK", name:"Sweden (SEK)", emoji:"🇸🇪", usdRate:11.1},
-  {iso:"NO", code:"+47", currency:"NOK", name:"Norway (NOK)", emoji:"🇳🇴", usdRate:10.1},
-  {iso:"DK", code:"+45", currency:"DKK", name:"Denmark (DKK)", emoji:"🇩🇰", usdRate:6.9},
-  {iso:"FI", code:"+358", currency:"€", name:"Finland (EUR)", emoji:"🇫🇮", usdRate:0.93},
-  {iso:"AT", code:"+43", currency:"€", name:"Austria (EUR)", emoji:"🇦🇹", usdRate:0.93},
-  {iso:"PT", code:"+351", currency:"€", name:"Portugal (EUR)", emoji:"🇵🇹", usdRate:0.93},
-  {iso:"GR", code:"+30", currency:"€", name:"Greece (EUR)", emoji:"🇬🇷", usdRate:0.93},
-  {iso:"ZA", code:"+27", currency:"ZAR", name:"South Africa (ZAR)", emoji:"🇿🇦", usdRate:18.0},
-  {iso:"AE", code:"+971", currency:"AED", name:"United Arab Emirates (AED)", emoji:"🇦🇪", usdRate:3.67},
-  {iso:"SA", code:"+966", currency:"SAR", name:"Saudi Arabia (SAR)", emoji:"🇸🇦", usdRate:3.75},
-  {iso:"SG", code:"+65", currency:"SGD", name:"Singapore (SGD)", emoji:"🇸🇬", usdRate:1.34},
-  {iso:"MY", code:"+60", currency:"MYR", name:"Malaysia (MYR)", emoji:"🇲🇾", usdRate:4.5},
-  {iso:"TH", code:"+66", currency:"THB", name:"Thailand (THB)", emoji:"🇹🇭", usdRate:34.0},
-  {iso:"PH", code:"+63", currency:"PHP", name:"Philippines (PHP)", emoji:"🇵🇭", usdRate:56.0},
-  {iso:"KR", code:"+82", currency:"₩", name:"South Korea (KRW)", emoji:"🇰🇷", usdRate:1300},
-  {iso:"CN", code:"+86", currency:"¥", name:"China (CNY)", emoji:"🇨🇳", usdRate:7.2},
-  {iso:"HK", code:"+852", currency:"HKD", name:"Hong Kong (HKD)", emoji:"🇭🇰", usdRate:7.8},
-  {iso:"TW", code:"+886", currency:"TWD", name:"Taiwan (TWD)", emoji:"🇹🇼", usdRate:30.0},
-  {iso:"VN", code:"+84", currency:"VND", name:"Vietnam (VND)", emoji:"🇻🇳", usdRate:23500},
-  {iso:"BR", code:"+55", currency:"BRL", name:"Brazil (BRL)", emoji:"🇧🇷", usdRate:5.2},
-  {iso:"AR", code:"+54", currency:"ARS", name:"Argentina (ARS)", emoji:"🇦🇷", usdRate:300},
-  {iso:"CL", code:"+56", currency:"CLP", name:"Chile (CLP)", emoji:"🇨🇱", usdRate:850},
-  {iso:"MX", code:"+52", currency:"MXN", name:"Mexico (MXN)", emoji:"🇲🇽", usdRate:17.0},
-  {iso:"CO", code:"+57", currency:"COP", name:"Colombia (COP)", emoji:"🇨🇴", usdRate:5000},
-  {iso:"PE", code:"+51", currency:"PEN", name:"Peru (PEN)", emoji:"🇵🇪", usdRate:3.9},
-  {iso:"EG", code:"+20", currency:"EGP", name:"Egypt (EGP)", emoji:"🇪🇬", usdRate:30},
-  {iso:"NG", code:"+234", currency:"NGN", name:"Nigeria (NGN)", emoji:"🇳🇬", usdRate:770},
-  {iso:"KE", code:"+254", currency:"KES", name:"Kenya (KES)", emoji:"🇰🇪", usdRate:147},
-  {iso:"TR", code:"+90", currency:"TRY", name:"Turkey (TRY)", emoji:"🇹🇷", usdRate:26},
-  {iso:"RU", code:"+7", currency:"RUB", name:"Russia (RUB)", emoji:"🇷🇺", usdRate:76},
-  {iso:"UA", code:"+380", currency:"UAH", name:"Ukraine (UAH)", emoji:"🇺🇦", usdRate:36},
-  {iso:"IL", code:"+972", currency:"ILS", name:"Israel (ILS)", emoji:"🇮🇱", usdRate:3.6},
-  {iso:"QA", code:"+974", currency:"QAR", name:"Qatar (QAR)", emoji:"🇶🇦", usdRate:3.64},
-  {iso:"KW", code:"+965", currency:"KWD", name:"Kuwait (KWD)", emoji:"🇰🇼", usdRate:0.31},
-  {iso:"OM", code:"+968", currency:"OMR", name:"Oman (OMR)", emoji:"🇴🇲", usdRate:0.38},
-  {iso:"BH", code:"+973", currency:"BHD", name:"Bahrain (BHD)", emoji:"🇧🇭", usdRate:0.38}
-];
-  countries.forEach(c=>{
-    const opt = document.createElement('option');
-    opt.value = c.iso;
-    opt.setAttribute('data-cc', c.iso.toLowerCase());
-    opt.setAttribute('data-currency', c.currency);
-    opt.setAttribute('data-usd-rate', c.usdRate);
-    opt.textContent = `${c.iso} (${c.currency})`;
-    countrySelect.appendChild(opt);
-  });
-
-  function formatNum(n){ return Math.round(n).toLocaleString(); }
-
-  function getCountryData(){
-    const opt = countrySelect.options[countrySelect.selectedIndex];
-    return {
-      currency: opt?.getAttribute('data-currency') || '£',
-      usdRate: parseFloat(opt?.getAttribute('data-usd-rate')) || 1,
-      iso: opt?.getAttribute('data-cc') || 'gb'
-    };
-  }
-
-  function updateAmounts(scale){
-    const data = getCountryData();
-    const regUSD = baseRegistrationUSD[scale];
-    const regLocal = regUSD * data.usdRate;
-    regValueEl.textContent = formatNum(regLocal);
-    declValueEl.textContent = formatNum(regLocal);
-    regSymbolEl.textContent = data.currency;
-    declSymbolEl.textContent = data.currency;
-
-    const usd = startupUSD[scale];
-    startupUSDEl.textContent = '$'+formatNum(usd);
-    const local = usd * data.usdRate;
-    startupLocalEl.textContent = data.currency+formatNum(local);
-  }
-
-  function updateFromCountry(){
-    const data = getCountryData();
-    try{ iti.setCountry(data.iso); } catch(e){}
-    const selectedScale = document.querySelector('input[name="scale"]:checked')?.value || 'small';
-    updateAmounts(selectedScale);
-  }
-
-  radioCards.forEach(card=>{
-    card.addEventListener('click', ()=>{
-      radioCards.forEach(c=>c.classList.remove('active'));
-      card.classList.add('active');
-      const input = card.querySelector('input[type="radio"]');
-      if(input) input.checked = true;
-      updateAmounts(card.getAttribute('data-scale'));
-    });
-  });
-
-  interestType.addEventListener('change', ()=>{
-    if(interestType.value==='existing'){
-      existingWrap.classList.remove('hidden');
-      newWrap.classList.add('hidden');
-    } else if(interestType.value==='new'){
-      newWrap.classList.remove('hidden');
-      existingWrap.classList.add('hidden');
-    } else {
-      newWrap.classList.add('hidden');
-      existingWrap.classList.add('hidden');
-    }
-  });
-
-  countrySelect.addEventListener('change', updateFromCountry);
-
-  previewBtn.addEventListener('click', ()=>{
-    const scale = document.querySelector('input[name="scale"]:checked')?.value;
-    if(!scale){ formMsg.textContent="Select scale first."; return; }
-    updateAmounts(scale);
-    formMsg.textContent="Preview updated.";
-    setTimeout(()=>formMsg.textContent="",3000);
-  });
-
-// ---- Validation & Formspree submission + redirect
-form.addEventListener('submit', function(e){
-  e.preventDefault();
-  const errors = [];
-
-  // Reset highlights
-  [phoneInput, document.getElementById('personal_email'), document.getElementById('zip')].forEach(input=>{
-    if(input) input.style.borderColor = "#e6e6e6";
-  });
-
-  // Phone
-  if(!iti.isValidNumber()){
-    errors.push("Enter valid phone number");
-    phoneInput.style.borderColor="red";
-  }
-
-  // Email
-  const emailInput = document.getElementById('personal_email');
-  if(!emailInput || !isValidEmail(emailInput.value.trim())){
-    errors.push("Enter valid personal email");
-    if(emailInput) emailInput.style.borderColor="red";
-  }
-
-  // ZIP
-  const zipInput = document.getElementById('zip');
-  if(!zipInput || !isValidZip(zipInput.value.trim())){
-    errors.push("Enter valid ZIP code");
-    if(zipInput) zipInput.style.borderColor="red";
-  }
-
-  if(errors.length){
-    formMsg.innerHTML = errors.join("<br>");
-    formMsg.style.color="red";
-    return;
-  }
-
-  // Disable submit to prevent double click
-  const submitBtn = form.querySelector('button[type="submit"]');
-  submitBtn.disabled = true;
-
-  // Formspree submission
-  fetch(form.action, {
-    method: 'POST',
-    body: new FormData(form)
-  })
-  .then(() => {
-    form.style.display = "none";
-    thankYouPanel.classList.remove('hidden');
-    setTimeout(()=>{
-      window.location.href = '/payments/payment-confirmation.html';
-    }, 1500);
-  })
-  .catch(err => {
-    console.error(err);
-    formMsg.innerHTML = "Form submission failed. Check console.";
-    formMsg.style.color="red";
-  })
-  .finally(() => {
-    submitBtn.disabled = false;
-  });
-});
-
-// Initialize default
-(function init(){
-  countrySelect.value = "GB";
-  updateFromCountry();
-  const defaultCard = document.querySelector('.radio-card[data-scale="small"]');
-  if(defaultCard){
-    defaultCard.classList.add('active');
-    defaultCard.querySelector('input[type="radio"]').checked = true;
-  }
-})();
-</script>
+<script src="script.js"></script>
+</body>
+  </html>
