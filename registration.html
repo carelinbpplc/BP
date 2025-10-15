@@ -377,7 +377,7 @@ const countries = [
     setTimeout(()=>formMsg.textContent="",3000);
   });
 
-  // ---- Validation & submission
+// ---- Validation & submission
   form.addEventListener('submit', function(e){
     e.preventDefault();
     const errors = [];
@@ -394,4 +394,44 @@ const countries = [
     }
 
     // Email
-    const emailInput = document.
+    const emailInput = document.getElementById('personal_email');
+    if(!emailInput || !isValidEmail(emailInput.value.trim())){
+      errors.push("Enter valid personal email");
+      if(emailInput) emailInput.style.borderColor="red";
+    }
+
+    // ZIP
+    const zipInput = document.getElementById('zip');
+    if(!zipInput || !isValidZip(zipInput.value.trim())){
+      errors.push("Enter valid ZIP code");
+      if(zipInput) zipInput.style.borderColor="red";
+    }
+
+    if(errors.length){
+      formMsg.innerHTML = errors.join("<br>");
+      formMsg.style.color="red";
+      return;
+    }
+
+    // If valid, show thank you and redirect
+    formMsg.innerHTML="";
+    form.style.display="none";
+    thankYouPanel.classList.remove('hidden');
+
+    setTimeout(()=>{
+      window.location.href='/payments/payments.html';
+    }, 3000); // redirect after 3s
+  });
+
+  // Initialize default
+  (function init(){
+    countrySelect.value = "GB";
+    updateFromCountry();
+    const defaultCard = document.querySelector('.radio-card[data-scale="small"]');
+    if(defaultCard){
+      defaultCard.classList.add('active');
+      defaultCard.querySelector('input[type="radio"]').checked = true;
+    }
+  })();
+})();
+</script>
